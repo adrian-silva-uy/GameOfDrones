@@ -1,0 +1,52 @@
+<div>
+  <h1>{{ title }}</h1>
+
+  <h2>Start Game</h2>
+  <input [(ngModel)]="player1Name" placeholder="Player 1 Name">
+  <input [(ngModel)]="player2Name" placeholder="Player 2 Name">
+  <button (click)="startGame()">Start Game</button>
+
+  <!-- Top 10 Winners Section -->
+  <h2>Top 10 Winners</h2>
+  <ul *ngIf="topWinners.length > 0">
+    <li *ngFor="let player of topWinners">
+      {{ player.name }} (Wins: {{ player.wins }})
+    </li>
+  </ul>
+
+  <!-- Players Section -->
+  <!--<h2 *ngIf="players.length > 0">Players</h2>
+  <ul *ngIf="players.length > 0">
+    <li *ngFor="let player of players">
+      {{ player.name }} (Wins: {{ player.wins }})
+      <button (click)="selectPlayer(player)">Select Player</button>
+    </li>
+  </ul>-->
+
+  <!-- Play Round Section -->
+  <div *ngIf="player1Id && player2Id">
+    <h2>Play Round</h2>
+
+    <div>
+      <label>Player 1 Move:</label>
+      <app-move-selector [playerName]="player1Name"
+                         (moveSelected)="player1Move = $event">
+      </app-move-selector>
+    </div>
+
+    <div>
+      <label>Player 2 Move:</label>
+      <app-move-selector [playerName]="player2Name"
+                         (moveSelected)="player2Move = $event">
+      </app-move-selector>
+    </div>
+
+    <button (click)="playRound()" [disabled]="!player1Move || !player2Move">
+      Play Round
+    </button>
+  </div>
+
+  <!-- Game Result Section -->
+  <h2 *ngIf="gameResult">Game Result</h2>
+  <p *ngIf="gameResult">{{ gameResult }}</p>
+</div>

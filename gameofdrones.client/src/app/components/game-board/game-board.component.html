@@ -1,0 +1,21 @@
+<!-- Players Section -->
+<h2 *ngIf="players.length > 0">Players</h2>
+<ul *ngIf="players.length > 0">
+  <li *ngFor="let player of players">
+    {{ player.name }} (Wins: {{ player.wins }})
+    <button (click)="selectPlayer(player.id, 1)">Select as Player 1</button>
+    <button (click)="selectPlayer(player.id, 2)">Select as Player 2</button>
+  </li>
+</ul>
+
+<!-- Game Section -->
+<div *ngIf="gameStarted">
+  <h2>Game Board</h2>
+  <p>Player 1: {{ player1Name }} | Player 2: {{ player2Name }}</p>
+  <input [(ngModel)]="player1Move" placeholder="Player 1 Move">
+  <input [(ngModel)]="player2Move" placeholder="Player 2 Move">
+  <button (click)="playRound()">Play Round</button>
+  <p>{{ roundResult }}</p>
+  <p>Scoreboard - Player 1: {{ scoreboard.player1 }} | Player 2: {{ scoreboard.player2 }}</p>
+</div>
+<button (click)="startGame()" *ngIf="!gameStarted && player1Id && player2Id">Start Game</button>

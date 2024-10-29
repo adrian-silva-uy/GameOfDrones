@@ -1,0 +1,28 @@
+@GameOfDrones.Server_HostAddress = http://localhost:5277
+
+###
+# Start Game (POST)
+POST {{GameOfDrones.Server_HostAddress}}/api/game/start-game
+Content-Type: application/json
+
+{
+  "player1Name": "Alice",
+  "player2Name": "Bob"
+}
+
+###
+# Play Round (POST)
+POST {{GameOfDrones.Server_HostAddress}}/api/game/play-round
+Content-Type: application/json
+
+{
+  "player1Id": 1,
+  "player2Id": 2,
+  "player1Move": "Rock",
+  "player2Move": "Scissors"
+}
+
+###
+# Get Players and Results (GET)
+GET {{GameOfDrones.Server_HostAddress}}/api/game/results
+Accept: application/json
