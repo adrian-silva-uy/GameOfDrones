@@ -20,11 +20,39 @@ namespace GameOfDrones.Server.Api.Controllers
             _playerRepository = playerRepository;
         }
 
+        //[HttpPost("play-round")]
+        //public async Task<IActionResult> PlayRound([FromBody] PlayDto playDto)
+        //{
+        //    try
+        //    {
+        //        if (playDto == null)
+        //        {
+        //            return BadRequest("PlayDto is null.");
+        //        }
+
+        //        Console.WriteLine($"Player1Id: {playDto.Player1Id}, Player2Id: {playDto.Player2Id}");
+        //        Console.WriteLine($"Player1Move: {playDto.Player1Move}, Player2Move: {playDto.Player2Move}");
+
+        //        var player1 = await _playerRepository.GetPlayerByIdAsync(playDto.Player1Id);
+        //        var player2 = await _playerRepository.GetPlayerByIdAsync(playDto.Player2Id);
+
+        //        if (player1 == null || player2 == null) return BadRequest("Players not found.");
+
+        //        var roundResult = await _gameService.PlayGameAsync(playDto.Player1Id, playDto.Player2Id, playDto.Player1Move, playDto.Player2Move);
+        //        return Ok(roundResult);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, "An error occurred while processing your request: " + ex.Message);
+        //    }
+        //}
+
         [HttpPost("play-round")]
         public async Task<IActionResult> PlayRound([FromBody] PlayDto playDto)
         {
             try
             {
+
                 if (playDto == null)
                 {
                     return BadRequest("PlayDto is null.");
@@ -43,6 +71,7 @@ namespace GameOfDrones.Server.Api.Controllers
                 return StatusCode(500, "An error occurred while processing your request: " + ex.Message);
             }
         }
+
 
         [HttpPost("start-game")]
         public async Task<IActionResult> StartGame([FromBody] StartGameDto startGameDto)

@@ -19,14 +19,25 @@ export class GameService {
     return this.http.post<{ player1: Player; player2: Player }>(`${this.apiUrl}/start-game`, { player1Name, player2Name });
   }
 
+  //playRound(player1Id: number, player2Id: number, player1Move: string, player2Move: string): Observable<any> {
+  //  const body = {
+  //    playDto: {
+  //      player1Id,
+  //      player2Id,
+  //      player1Move: player1Move.toUpperCase(),
+  //      player2Move: player2Move.toUpperCase() 
+  //    }
+  //  };
+  //  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+  //  return this.http.post(`${this.apiUrl}/play-round`, body, { headers: headers });
+  //}
   playRound(player1Id: number, player2Id: number, player1Move: string, player2Move: string): Observable<any> {
     const body = {
-      playDto: {
-        player1Id,
-        player2Id,
-        player1Move: player1Move.toUpperCase(),
-        player2Move: player2Move.toUpperCase() 
-      }
+      player1Id,
+      player2Id,
+      player1Move: player1Move.toUpperCase(),
+      player2Move: player2Move.toUpperCase()
     };
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 

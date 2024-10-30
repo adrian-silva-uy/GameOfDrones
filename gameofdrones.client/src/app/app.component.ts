@@ -54,10 +54,10 @@ export class AppComponent implements OnInit {
   selectPlayer(player: any) {
     if (!this.player1Id) {
       this.player1Id = player.id;
-      this.player1Name = player.name; // Guardar el nombre del jugador 1
+      this.player1Name = player.name; 
     } else if (!this.player2Id) {
       this.player2Id = player.id;
-      this.player2Name = player.name; // Guardar el nombre del jugador 2
+      this.player2Name = player.name; 
     }
   }
 
@@ -67,7 +67,7 @@ export class AppComponent implements OnInit {
         this.players = [response.player1, response.player2];
         this.player1Id = response.player1.id;
         this.player2Id = response.player2.id;
-        this.resetGame(); // Reiniciar el juego
+        this.resetGame(); 
       },
       (error: any) => {
         console.error('Error starting game:', error);
@@ -83,32 +83,31 @@ export class AppComponent implements OnInit {
 
   onPlayerMoveSelected(playerId: number, move: string) {
     if (playerId === this.player1Id) {
-      this.player1Move = move; // Asignar el movimiento del jugador 1
+      this.player1Move = move;
     } else if (playerId === this.player2Id) {
-      this.player2Move = move; // Asignar el movimiento del jugador 2
+      this.player2Move = move;
     }
   }
 
   playRound() {
-    console.log('Playing round:', {
-      player1Id: this.player1Id,
-      player2Id: this.player2Id,
-      player1Move: this.player1Move,
-      player2Move: this.player2Move,
-    });
-
     if (this.player1Id && this.player2Id && this.player1Move && this.player2Move) {
-      this.gameService.playRound(this.player1Id, this.player2Id, this.player1Move, this.player2Move).subscribe(
-        (result: any) => {
-          this.gameResult = `${result.winner} won this round!`;
-          this.loadPlayers();
-          this.loadTopWinners();
-          this.resetGame(); 
-        },
-        (error: any) => {
-          console.error('Error playing round:', error);
-        }
-      );
+      this.gameService.playRound(this.player1Id, this.player2Id, this.player1Move, this.player2Move)
+        .subscribe(
+          (roundResult) => {
+            if (roundResult.winner === "Player 1 Wins") {
+              this.gameResult = `${roundResult.player1.name} wins! (Played on: ${new Date(roundResult.datePlayed).toLocaleString()})`;
+            } else if (roundResult.winner === "Player 2 Wins") {
+              this.gameResult = `${roundResult.player2.name} wins! (Played on: ${new Date(roundResult.datePlayed).toLocaleString()})`;
+            } else {
+              this.gameResult = `Draw (Played on: ${new Date(roundResult.datePlayed).toLocaleString()})`;
+            }
+          },
+          (error) => {
+            console.error('Error playing round:', error);
+            this.gameResult = 'Error occurred while playing the round.';
+          }
+        );
     }
   }
+
 }

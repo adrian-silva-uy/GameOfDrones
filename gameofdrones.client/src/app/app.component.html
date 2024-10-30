@@ -7,21 +7,13 @@
   <button (click)="startGame()">Start Game</button>
 
   <!-- Top 10 Winners Section -->
-  <h2>Top 10 Winners</h2>
-  <ul *ngIf="topWinners.length > 0">
-    <li *ngFor="let player of topWinners">
-      {{ player.name }} (Wins: {{ player.wins }})
+  <h2 class="top-winners-title">Top 10 Winners</h2>
+  <ul class="top-winners-list" *ngIf="topWinners.length > 0">
+    <li *ngFor="let player of topWinners" class="top-winner-item">
+      <span class="player-name">{{ player.name }}</span>
+      <span class="player-wins">Wins: {{ player.wins }}</span>
     </li>
   </ul>
-
-  <!-- Players Section -->
-  <!--<h2 *ngIf="players.length > 0">Players</h2>
-  <ul *ngIf="players.length > 0">
-    <li *ngFor="let player of players">
-      {{ player.name }} (Wins: {{ player.wins }})
-      <button (click)="selectPlayer(player)">Select Player</button>
-    </li>
-  </ul>-->
 
   <!-- Play Round Section -->
   <div *ngIf="player1Id && player2Id">
@@ -47,6 +39,14 @@
   </div>
 
   <!-- Game Result Section -->
-  <h2 *ngIf="gameResult">Game Result</h2>
-  <p *ngIf="gameResult">{{ gameResult }}</p>
+  <div *ngIf="gameResult" class="game-result">
+    <h3>Game Result</h3>
+    <p [ngClass]="{
+       'winner-player1': gameResult.includes(player1Name),
+       'winner-player2': gameResult.includes(player2Name),
+       'draw': gameResult.includes('Draw')
+     }">
+      {{ gameResult }}
+    </p>
+  </div>
 </div>

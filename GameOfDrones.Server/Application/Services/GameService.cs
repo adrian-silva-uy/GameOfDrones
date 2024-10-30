@@ -31,7 +31,8 @@ public class GameService : IGameService
         return Task.FromResult("Player 2 Wins");
     }
 
-    public async Task<RoundResult> PlayGameAsync(int player1Id, int player2Id, MoveEnum player1Move, MoveEnum player2Move)
+    //public async Task<RoundResult> PlayGameAsync(int player1Id, int player2Id, MoveEnum player1Move, MoveEnum player2Move)
+    public async Task<RoundResult> PlayGameAsync(int player1Id, int player2Id, string player1Move, string player2Move)
     {
         var player1 = await _playerRepository.GetPlayerByIdAsync(player1Id);
         var player2 = await _playerRepository.GetPlayerByIdAsync(player2Id);
@@ -39,7 +40,15 @@ public class GameService : IGameService
         if (player1 == null || player2 == null)
             throw new ArgumentException("Invalid player IDs provided");
 
-        var result = await DetermineWinnerAsync(player1Move, player2Move);
+        // Verifica que los movimientos sean válidos para el tipo MoveEnum
+        if (!Enum.TryParse(player1Move, true, out MoveEnum validatedMove1) ||
+            !Enum.TryParse(player2Move, true, out MoveEnum validatedMove2))
+        {
+            throw new ArgumentException("Invalid move provided");
+        }
+
+        //var result = await DetermineWinnerAsync(player1Move, player2Move);/
+        var result = await DetermineWinnerAsync(validatedMove1, validatedMove2);
 
         if (result == "Player 1 Wins")
         {

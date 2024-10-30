@@ -1,14 +1,107 @@
-﻿:host {
-    max-width: 1280px;
-    padding: 2rem;
-    text-align: center;
+:host {
+  max-width: 1280px;
+  padding: 2rem;
+  text-align: center;
 }
 
-th, td {
-    padding-left: 1rem;
-    padding-right: 1rem;
+.top-winners-title {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #4a90e2;
+  text-transform: uppercase;
 }
 
-table {
-    margin: 0 auto;
+.top-winners-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
 }
+
+.top-winner-item {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #f4f4f8;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.player-name {
+  font-weight: bold;
+}
+
+.player-wins {
+  color: #7d7d7d;
+}
+
+.game-result {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+  background-color: #f0f4f8;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 600px;
+  margin: 1.5rem auto;
+  text-align: center;
+}
+
+  .game-result h3 {
+    font-size: 1.5rem;
+    color: #4a90e2;
+    margin-bottom: 0.5rem;
+  }
+
+  .game-result p {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #333;
+    position: relative;
+  }
+
+    .game-result p::before {
+      content: "🏆 ";
+    }
+
+    .game-result p.draw::before {
+      content: "🤝 ";
+    }
+
+    .game-result p.winner-player1 {
+      color: #2b8a3e;
+    }
+
+    .game-result p.winner-player2 {
+      color: #e63946;
+    }
+
+    .game-result p.draw {
+      color: #7d7d7d;
+    }
+
+.move-selector {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.move-option {
+  padding: 1rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background-color: #f4f4f8;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+  .move-option.selected {
+    border-color: #4a90e2;
+    background-color: #e0f7fa;
+  }
+
+  .move-option:hover {
+    background-color: #e0f4ff;
+  }
